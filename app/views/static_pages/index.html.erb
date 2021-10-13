@@ -1,0 +1,44 @@
+<div class = "container">
+
+<h1>Nice pictures</h1>
+
+<% if params[:user_id].nil? %>
+
+  <%= form_with( method: 'get' ) do |form| %>
+    <%= form.label :user_id, "User id: " %>
+    <%= form.text_field :user_id %>
+    <%= form.submit "Submit" %>
+  <% end %>
+
+<% else %>
+
+  <div>Displaying photos from user <%= params[:user_id] %> </div>
+
+    <div class="col-md-auto w-25">
+
+      <% unless @photos.nil? %>
+
+      <% @photos.each do |photo| %>
+
+          <div class="row mt-5">
+            <%= photo.title %>
+          </div>
+          <div class="row my-2">
+            <img src="<%= Flickr.url_n(photo) %>"/>
+          </div>
+      <% end %>
+
+      <% else %>
+
+        <div> No photos found </div>
+
+      <% end %>
+
+    </div>
+
+    <%= link_to "Home", root_path %>
+
+<% end %>
+
+
+</div>
